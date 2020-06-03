@@ -10,7 +10,141 @@ const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
+function inquireEmployee() {
+  return inquirer.prompt([
+    {
+      name: "name",
+      type: "input",
+      message: "Enter the employee's name: "
+    },
+    {
+      name: "email",
+      type: "input",
+      message: "Enter the employee's email: "
+    }
+  ]);
+}
 
+function inquireManager() {
+  return inquirer.prompt([
+    {
+      name: "officeNumber",
+      type: "input",
+      message: "Enter the manager's office number: "
+    }
+  ]);
+}
+
+function inquireEngineer() {
+  return inquirer.prompt([
+    {
+      name: "github",
+      type: "input",
+      message: "Enter the engineer's github: "
+    }
+  ]);
+}
+
+function inquireIntern() {
+  return inquirer.prompt([
+    {
+      name: "school",
+      type: "input",
+      message: "Enter the intern's school: "
+    }
+  ]);
+}
+
+function inquireChoice() {
+  return inquirer.prompt([
+    {
+      name: "choice",
+      type: "expand",
+      message: "Select an option ",
+      choices: [
+        {
+          name: "Add (e)ngineer",
+          key: "e",
+          value: "engineer"
+        },
+        {
+          name: "Add (i)ntern",
+          key: "i",
+          value: "intern"
+        },
+        {
+          name: "View all employees",
+          key: "v",
+          value: "view"
+        },
+        {
+          name: "Done",
+          key: "d",
+          value: "done"
+        }
+      ]
+    }
+  ]);
+}
+
+async function main() {
+
+  console.log("\n\t~~~~~ Starting Employee Summary ~~~~~\n\t");
+  console.log("-> Start by entering the team's manager: \n")
+
+  const employees = [];
+
+  // Manager
+  const employeeResponse = await inquireEmployee();
+  const managerResponse = await inquireManager();
+  const manager = new Manager(employeeResponse.name,employeeResponse.email,managerResponse.officeNumber);
+
+  employees.push(manager);
+
+  let choice;
+  do {
+    ({choice} = await inquireChoice());
+    if (choice === "done") {
+      break;
+      process.exit(0);
+    }
+    else if (choice === "view") {
+      console.log(`${employees.length} Employees: \n`);
+      employees.forEach(employee => {
+        let output = `(${employee.constructor.name}) ${employee.name} [${employee.email}] `;
+        if (employee instanceof Manager) {
+          output += `office: ${employee.getOfficeNumber()}`
+        }
+        else if (employee instanceof Engineer) {
+          output += `github: ${employee.getGithub()}`
+        }
+        else if (employee instanceof Intern) {
+          output += `school: ${employee.getSchool()}`
+        }
+        console.log(output);
+      });
+      console.log("\n");
+    }
+    else if (choice === "engineer") {
+      const employeeResponse = await inquireEmployee();
+      const engineerResponse = await inquireEngineer();
+      const engineer = new Engineer(employeeResponse.name, employeeResponse.email,engineerResponse.github);
+      employees.push(engineer);
+    }
+    else if (choice === "intern") {
+      const employeeResponse = await inquireEmployee();
+      const internResponse = await inquireIntern();
+      const intern = new Intern(employeeResponse.name, employeeResponse.email, internResponse.school);
+      employees.push(intern);
+    }
+
+  } while(choice !== "done")
+
+  const html = render(employees);
+  fs.writeFileSync(outputPath,html);
+}
+
+main();
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
 
