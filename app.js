@@ -3,6 +3,7 @@ const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
+const validator = require("./lib/Validator");
 const fs = require("fs");
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
@@ -20,7 +21,8 @@ function inquireEmployee() {
     {
       name: "email",
       type: "input",
-      message: "Enter the employee's email: "
+      message: "Enter the employee's email: ",
+      validate: validator.checkEmail
     }
   ]);
 }
@@ -30,7 +32,8 @@ function inquireManager() {
     {
       name: "officeNumber",
       type: "input",
-      message: "Enter the manager's office number: "
+      message: "Enter the manager's office number: ",
+      validate: validator.checkPhone
     }
   ]);
 }
@@ -88,6 +91,8 @@ function inquireChoice() {
 }
 
 async function main() {
+
+  console.log("email is valid? ", validator.checkEmail("test"));
 
   console.log("\n\t~~~~~ Starting Employee Summary ~~~~~\n\t");
   console.log("-> Start by entering the team's manager: \n")
