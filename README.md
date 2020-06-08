@@ -29,7 +29,7 @@ node ./app.js
 
 Next, simply follow the prompts.
 
-[GIF Walkthrough](preview.gif)
+![GIF Walkthrough](preview.gif)
 
 For more information, watch the walkthrough video.
 
