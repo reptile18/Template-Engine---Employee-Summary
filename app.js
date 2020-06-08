@@ -91,9 +91,6 @@ function inquireChoice() {
 }
 
 async function main() {
-
-  console.log("email is valid? ", validator.checkEmail("test"));
-
   console.log("\n\t~~~~~ Starting Employee Summary ~~~~~\n\t");
   console.log("-> Start by entering the team's manager: \n")
 
@@ -105,6 +102,8 @@ async function main() {
   const manager = new Manager(employeeResponse.name,employeeResponse.email,managerResponse.officeNumber);
 
   employees.push(manager);
+
+  console.log("\n-> Now enter the remaining employees: \n");
 
   let choice;
   do {
@@ -147,6 +146,7 @@ async function main() {
 
   const html = render(employees);
   fs.writeFileSync(outputPath,html);
+  console.log("\n-> Employee summary page written to ./output/team.html\n");
 }
 
 main();

@@ -37,7 +37,13 @@ For more information, watch the walkthrough video.
 
 ## Tests
 
-TBD
+To run the tests, type:
+
+```
+npm test
+```
+
+If all goes well, you will see output indicating that 4 suites passed and 17 total tests passed.
 
 ## FAQ
 
