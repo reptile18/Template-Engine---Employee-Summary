@@ -1,3 +1,4 @@
+const Employee = require("./lib/Employee");
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
@@ -99,7 +100,7 @@ async function main() {
   // Manager
   const employeeResponse = await inquireEmployee();
   const managerResponse = await inquireManager();
-  const manager = new Manager(employeeResponse.name,employeeResponse.email,managerResponse.officeNumber);
+  const manager = new Manager(employeeResponse.name,Employee.lastID++,employeeResponse.email,managerResponse.officeNumber);
 
   employees.push(manager);
 
@@ -110,12 +111,11 @@ async function main() {
     ({choice} = await inquireChoice());
     if (choice === "done") {
       break;
-      process.exit(0);
     }
     else if (choice === "view") {
       console.log(`${employees.length} Employees: \n`);
       employees.forEach(employee => {
-        let output = `(${employee.constructor.name}) ${employee.name} [${employee.email}] `;
+        let output = `[${employee.getId()}](${employee.constructor.name}) ${employee.getName()} [${employee.getEmail()}] `;
         if (employee instanceof Manager) {
           output += `office: ${employee.getOfficeNumber()}`
         }
@@ -132,13 +132,13 @@ async function main() {
     else if (choice === "engineer") {
       const employeeResponse = await inquireEmployee();
       const engineerResponse = await inquireEngineer();
-      const engineer = new Engineer(employeeResponse.name, employeeResponse.email,engineerResponse.github);
+      const engineer = new Engineer(employeeResponse.name, Employee.lastID++,employeeResponse.email,engineerResponse.github);
       employees.push(engineer);
     }
     else if (choice === "intern") {
       const employeeResponse = await inquireEmployee();
       const internResponse = await inquireIntern();
-      const intern = new Intern(employeeResponse.name, employeeResponse.email, internResponse.school);
+      const intern = new Intern(employeeResponse.name, Employee.lastID++, employeeResponse.email, internResponse.school);
       employees.push(intern);
     }
 
