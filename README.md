@@ -1,6 +1,6 @@
 # Template Engine - Employee Summary 
 
-[![Youtube Walkthrough](fakeyoutubeembed.png)](https://youtu.be/tK_eEkkiu1E)
+[![Youtube Walkthrough](fakeyoutubeembed.png)](https://www.youtube.com/watch?v=eESdQ3dbHoM)
 
 Node.js application that generates an html page that displays a list of team members on a project based on user input.
 
