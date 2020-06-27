@@ -2,6 +2,8 @@
 
 [![Youtube Walkthrough](fakeyoutubeembed.png)](https://www.youtube.com/watch?v=eESdQ3dbHoM)
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/eESdQ3dbHoM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 Node.js application that generates an html page that displays a list of team members on a project based on user input.
 
 #### Table of Contents
